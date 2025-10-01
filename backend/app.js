@@ -56,4 +56,4 @@ app.get("/get", (req, res) => {
 });
 
 
-export default app; 
+app.listen(port,()=>{console.log("sever")});
