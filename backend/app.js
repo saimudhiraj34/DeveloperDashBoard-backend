@@ -50,4 +50,4 @@ mongoose
   app.use("/project",project)
   app.use("/pro",pro)
 
- module.exports=app
+export default app; 
