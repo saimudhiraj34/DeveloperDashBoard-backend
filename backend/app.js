@@ -50,6 +50,5 @@ mongoose
   app.use("/note",note)
   app.use("/project",project)
   app.use("/pro",pro)
-  app.listen(port, () => {
-  console.log(`🚀 Server running at http://localhost:${port}`);
-});
+  
+ module.exports=app
