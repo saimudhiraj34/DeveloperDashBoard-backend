@@ -17,7 +17,16 @@ dotenv.config();
 const app = express();
 const port = process.env.PORT || 3000;
 
-app.use(cors());
+app.use(
+  cors({
+    origin:"https://developer-dash-board-frontend.vercel.app",
+    methods: ["GET", "POST", "PUT", "DELETE","PATCH"],
+    allowedHeaders: ["Content-Type","Authorization"],
+    credentials: true,
+  })
+);
+
+
 
 
 app.use(express.json());
