@@ -19,7 +19,6 @@ const port = process.env.PORT || 3000;
 
 app.use(
   cors({
-    origin: "http://localhost:5173",
     methods: ["GET", "POST", "PUT", "DELETE","PATCH"],
     allowedHeaders: ["Content-Type","Authorization"],
     credentials: true,
@@ -50,5 +49,5 @@ mongoose
   app.use("/note",note)
   app.use("/project",project)
   app.use("/pro",pro)
-  
+
  module.exports=app
