@@ -49,5 +49,9 @@ mongoose
   app.use("/note",note)
   app.use("/project",project)
   app.use("/pro",pro)
+app.get("/get", (req, res) => {
+  res.json("this is work");
+});
+
 
 export default app; 
