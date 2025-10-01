@@ -52,7 +52,7 @@ mongoose
   app.use("/project",project)
   app.use("/pro",pro)
 app.get("/get", (req, res) => {
-  res.json("this is work");
+  res.json("this is not work");
 });
 
 
