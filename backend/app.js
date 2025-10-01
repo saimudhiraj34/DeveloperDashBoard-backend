@@ -19,8 +19,9 @@ const port = process.env.PORT || 3000;
 
 app.use(
   cors({
-    methods: ["GET", "POST", "PUT", "DELETE","PATCH"],
-    allowedHeaders: ["Content-Type","Authorization"],
+    origin: ["http://localhost:5173", "https://your-frontend-vercel-url.vercel.app"], 
+    methods: ["GET", "POST", "PUT", "DELETE", "PATCH"],
+    allowedHeaders: ["Content-Type", "Authorization"],
     credentials: true,
   })
 );
