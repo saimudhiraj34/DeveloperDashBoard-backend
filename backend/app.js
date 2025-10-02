@@ -17,14 +17,25 @@ dotenv.config();
 const app = express();
 const port = process.env.PORT || 3000;
 
-app.use(
-  cors({
-    origin:"https://developer-dash-board-frontend.vercel.app",
-    methods: ["GET", "POST", "PUT", "DELETE","PATCH"],
-    allowedHeaders: ["Content-Type","Authorization"],
-    credentials: true,
-  })
-);
+const allowedOrigins = [
+  "http://localhost:5173", // dev frontend
+  "https://developer-dash-board-frontend.vercel.app" // production frontend
+];
+
+app.use(cors({
+  origin: function (origin, callback) {
+    // allow requests with no origin (like Postman)
+    if (!origin) return callback(null, true);
+    if (allowedOrigins.indexOf(origin) === -1) {
+      const msg = `The CORS policy for this site does not allow access from the specified Origin.`;
+      return callback(new Error(msg), false);
+    }
+    return callback(null, true);
+  },
+  methods: ["GET", "POST", "PUT", "DELETE", "PATCH"],
+  allowedHeaders: ["Content-Type", "Authorization"],
+  credentials: true, // allow cookies/auth headers
+}));
 
 
 
@@ -58,4 +69,8 @@ app.get("/get", (req, res) => {
 });
 
 
-app.listen(port,()=>{console.log("sever")});
+
+
+app.listen(port, () => {
+  console.log(`Server running at http://localhost:${port}`);
+});
