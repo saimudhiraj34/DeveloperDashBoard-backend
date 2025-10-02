@@ -17,10 +17,7 @@ dotenv.config();
 const app = express();
 const port = process.env.PORT || 3000;
 
-const allowedOrigins = [
-  "http://localhost:5173", // dev frontend
-  "https://developer-dash-board-frontend.vercel.app" // production frontend
-];
+const allowedOrigins = process.env.ALLOWED_ORIGINS.split(",");
 
 app.use(cors({
   origin: function (origin, callback) {
