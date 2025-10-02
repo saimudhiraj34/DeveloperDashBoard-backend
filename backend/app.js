@@ -17,7 +17,6 @@ dotenv.config();
 const app = express();
 const port = process.env.PORT || 3000;
 
-const allowedOrigins = process.env.ALLOWED_ORIGINS;
 
 app.use(cors());
 
@@ -46,8 +45,8 @@ mongoose
   .connect(process.env.MONGO_URI, {
     useNewUrlParser: true,
   useUnifiedTopology: true,
- 
-
+   serverSelectionTimeoutMS: 30000, // Increase timeout to 30 seconds
+    socketTimeoutMS: 45000
   })
   .then(() => console.log("✅ MongoDB Connected Successfully"))
   .catch((err) => console.error("❌ MongoDB Connection Error:", err));
@@ -65,6 +64,26 @@ mongoose
   app.use("/pro",pro)
 app.get("/get", (req, res) => {
   res.json("this is not work");
+});
+
+// In your server.js
+app.get("/test-db", async (req, res) => {
+  try {
+    const dbState = mongoose.connection.readyState;
+    const states = {
+      0: "disconnected",
+      1: "connected",
+      2: "connecting",
+      3: "disconnecting"
+    };
+    
+    res.json({
+      status: states[dbState],
+      hasMongoUri: !!process.env.MONGO_URI,
+    });
+  } catch (err) {
+    res.status(500).json({ error: err.message });
+  }
 });
 
 
