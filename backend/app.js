@@ -76,8 +76,13 @@ app.get("/test-db", async (req, res) => {
       2: "connecting",
       3: "disconnecting"
     };
-    
- res.json({
+
+    // Mask the Mongo URI for security (hide password)
+    let maskedUri = process.env.MONGO_URI
+      ? process.env.MONGO_URI.replace(/:\/\/(.*?):(.*?)@/, "://$1:****@")
+      : null;
+
+    res.json({
       status: states[dbState],
       hasMongoUri: !!process.env.MONGO_URI,
       mongoUriFormat: maskedUri,
