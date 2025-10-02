@@ -77,9 +77,11 @@ app.get("/test-db", async (req, res) => {
       3: "disconnecting"
     };
     
-    res.json({
+ res.json({
       status: states[dbState],
       hasMongoUri: !!process.env.MONGO_URI,
+      mongoUriFormat: maskedUri,
+      error: mongoose.connection.error ? mongoose.connection.error.message : null
     });
   } catch (err) {
     res.status(500).json({ error: err.message });
