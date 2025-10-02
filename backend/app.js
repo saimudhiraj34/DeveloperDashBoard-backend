@@ -19,27 +19,29 @@ const port = process.env.PORT || 3000;
 
 const allowedOrigins = process.env.ALLOWED_ORIGINS;
 
-app.use(cors({
-  origin: function (origin, callback) {
-    // allow requests with no origin (like Postman)
-    if (!origin) return callback(null, true);
-    if (allowedOrigins.indexOf(origin) === -1) {
-      const msg = `The CORS policy for this site does not allow access from the specified Origin.`;
-      return callback(new Error(msg), false);
-    }
-    return callback(null, true);
-  },
-  methods: ["GET", "POST", "PUT", "DELETE", "PATCH"],
-  allowedHeaders: ["Content-Type", "Authorization"],
-  credentials: true, // allow cookies/auth headers
-}));
-
+app.use(cors());
 
 
 
 app.use(express.json());
 app.use(express.urlencoded({ extended: true}));
 
+
+
+// {
+//   origin: function (origin, callback) {
+//     // allow requests with no origin (like Postman)
+//     if (!origin) return callback(null, true);
+//     if (allowedOrigins.indexOf(origin) === -1) {
+//       const msg = `The CORS policy for this site does not allow access from the specified Origin.`;
+//       return callback(new Error(msg), false);
+//     }
+//     return callback(null, true);
+//   },
+//   methods: ["GET", "POST", "PUT", "DELETE", "PATCH"],
+//   allowedHeaders: ["Content-Type", "Authorization"],
+//   credentials: true, // allow cookies/auth headers
+// }
 mongoose
   .connect(process.env.MONGO_URI, {
     useNewUrlParser: true,
