@@ -18,7 +18,12 @@ const app = express();
 const port = process.env.PORT || 3000;
 
 
-app.use(cors());
+const allowedOrigins = process.env.FRONTEND
+
+app.use(cors({
+  origin: allowedOrigins,
+  credentials: true, // if you are using cookies or auth headers
+}));
 
 
 
