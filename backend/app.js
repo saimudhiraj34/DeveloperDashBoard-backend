@@ -51,7 +51,21 @@ mongoose
   .then(() => console.log("✅ MongoDB Connected Successfully"))
   .catch((err) => console.error("❌ MongoDB Connection Error:", err));
 
-
+mongoose.connection.on("connecting", () => {
+  console.log("🔄 MongoDB is connecting...");
+});
+mongoose.connection.on("connected", () => {
+  console.log("✅ MongoDB connection established");
+});
+mongoose.connection.on("error", (err) => {
+  console.error("❌ MongoDB connection error:", err.message);
+});
+mongoose.connection.on("disconnected", () => {
+  console.log("⚠️ MongoDB disconnected");
+});
+mongoose.connection.on("reconnected", () => {
+  console.log("♻️ MongoDB reconnected");
+});
   app.use("/user", user);
   app.use("/syllabus",syllabus)
   app.use("/questions",question)
