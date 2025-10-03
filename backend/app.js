@@ -49,9 +49,7 @@ app.use(express.urlencoded({ extended: true}));
 mongoose
   .connect(process.env.MONGO_URI, {
     useNewUrlParser: true,
-  useUnifiedTopology: true,
-   serverSelectionTimeoutMS: 30000, // Increase timeout to 30 seconds
-    socketTimeoutMS: 45000
+  useUnifiedTopology: true, // Increase timeout to 30 seconds
   })
   .then(() => console.log("✅ MongoDB Connected Successfully"))
   .catch((err) => console.error("❌ MongoDB Connection Error:", err));
